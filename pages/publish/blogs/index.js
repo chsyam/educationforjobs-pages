@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import dynamic from 'next/dynamic';
 import { publishBlogs } from "@/pages/api/publish/publishBlogs";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { storage } from "./../../config";
+import storage from "./../../../components/config";
 import { TagsInput } from "react-tag-input-component";
 
 const JoditEditor = dynamic(() => import("jodit-react"), {
@@ -18,16 +18,13 @@ function AddPost() {
     const [uploadProgress, setUploadProgress] = useState(0);
     const [tags, setTags] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
+    const editorData = useRef("");
     const [formData, setFormData] = useState({
         title: "",
         content: "",
         videoUrl: "",
         resourceUrl: "",
         tagsList: ""
-    })
-
-    useEffect(() => {
-        document.title = "Publish a Post | EducationForJobs"
     })
 
     const handleChange = (e) => {
@@ -73,12 +70,6 @@ function AddPost() {
         );
     }
 
-    useEffect(() => {
-        setFormData({
-            ...formData,
-            "tagsList": tags.join("#")
-        })
-    }, [tags])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -106,9 +97,17 @@ function AddPost() {
         setFormData({ ...formData, content: newContent });
     };
 
-    const handleEditorChange = newContent => {
-        setFormData({ ...formData, content: newContent });
-    };
+    const handlePreview = () => {
+        console.log(editorData.current);
+        setFormData({ ...formData, content: editorData.current });
+    }
+
+    useEffect(() => {
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            tagsList: tags.join("#")
+        }));
+    }, [tags]);
 
     return (
         <div className={styles.addPost}> {
@@ -131,10 +130,10 @@ function AddPost() {
                             config={config}
                             tabIndex={1}
                             onBlur={handleBlur}
-                            onChange={handleEditorChange}
+                            onChange={(newContent) => { editorData.current = newContent }}
                         />
                         <div className={styles.divSection}>
-                            <div className={styles.label}>Live Preview</div>
+                            <div onClick={() => { handlePreview }} className={`${styles.label} ${styles.previewButton}`}>Click here for Refresh</div>
                             <div className={styles.preview}>
                                 <div className={styles.previewContent} dangerouslySetInnerHTML={{ __html: formData.content }}></div>
                             </div>

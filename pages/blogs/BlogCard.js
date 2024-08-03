@@ -27,7 +27,7 @@ function BlogCard({ blog }) {
             <div className={styles.cardFooter}>
                 <div className={styles.title}>
                     <p>
-                        {blog.title}
+                        {blog?.title}
                     </p>
                 </div>
                 <div className={styles.content}>
