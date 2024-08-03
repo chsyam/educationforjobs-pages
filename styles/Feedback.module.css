@@ -1,0 +1,68 @@
+.feedbackForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px auto;
+}
+
+.form .heading {
+    font-size: 30px;
+}
+
+.form {
+    background-color: #eaeaea;
+    padding: 10px 25px;
+    border-radius: 20px;
+    width: 70%;
+}
+
+.form div {
+    margin: 20px 0;
+}
+
+.form input {
+    font-family: 'Poppins', sans-serif;
+    width: 95%;
+    outline: none;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 7px;
+    border: 2px solid #eaeaea;
+}
+
+.form textarea {
+    font-family: 'Poppins', sans-serif;
+    width: 95%;
+    outline: none;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 7px;
+    resize: none;
+    border: 2px solid #eaeaea;
+}
+
+.form label {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.form .submitButton {
+    padding: 10px;
+    color: #FFF;
+    background-color: #1e00ff;
+    border: 2px solid #1e00ff;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+@media (max-width: 700px) {
+    .feedbackForm {
+        zoom: 0.7;
+    }
+
+    .form{
+        width: 80%;
+    }
+}
