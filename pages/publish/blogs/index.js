@@ -49,7 +49,6 @@ function AddPost() {
         if (!file) return;
         const fileRef = ref(storage, `files/${file.name}`);
         const uploadTask = uploadBytesResumable(fileRef, file);
-
         uploadTask.on(
             "state_changed",
             (snapshot) => {
@@ -69,7 +68,6 @@ function AddPost() {
             }
         );
     }
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();

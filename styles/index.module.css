@@ -1,38 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 .bodySection {
-    background: #95ff8b;
+    background: #a874fd;
+    padding: 20px 0;
+}
+
+.sectionHead {
+    margin: 20px 5%;
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 0 20px;
 }
 
 .sliderSection {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* 
-    background: #8E2DE2;
-    background: -webkit-linear-gradient(to right, #4A00E0, #8E2DE2);
-    background: linear-gradient(to right, #4A00E0, #8E2DE2);
-
-    background: #1f4037;
-    background: -webkit-linear-gradient(to right, #99f2c8, #1f4037);
-    background: linear-gradient(to right, #99f2c8, #1f4037);
-
-    background: #659999;
-    background: -webkit-linear-gradient(to right, #f4791f, #659999);
-    background: linear-gradient(to right, #f4791f, #659999);
-
-    background: #dd3e54;
-    background: -webkit-linear-gradient(to right, #6be585, #dd3e54);
-    background: linear-gradient(to right, #6be585, #dd3e54);
-
-    background: #009FFF;
-    background: -webkit-linear-gradient(to right, #ec2F4B, #009FFF);
-    background: linear-gradient(to right, #ec2F4B, #009FFF);
-
-    background: #485563;
-    background: -webkit-linear-gradient(to right, #29323c, #485563);
-    background: linear-gradient(to right, #29323c, #485563); */
-
+    margin: 20px 5%;
 }
 
 .slider-wrapper {
@@ -50,20 +34,9 @@
     backdrop-filter: blur(30);
     background: rgba(255, 255, 255);
     border: 1px solid #FFF;
-
     margin: 10px 5% 10px 5%;
     padding: 10px;
     cursor: pointer;
-
-    /* background: #D38312;
-    background: -webkit-linear-gradient(to right, #A83279, #D38312);
-    background: linear-gradient(to right, #A83279, #D38312); */
-
-    /* background: #12c2e9;
-    background: -webkit-linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
-    background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9); */
-
-    /* opacity: 0.5; */
 }
 
 .cardItem .quoteText {
@@ -90,24 +63,34 @@
 }
 
 .swiperNavButtons .buttons {
-    font-size: 2rem;
     display: flex;
-    gap: 40px;
+    align-items: center;
     flex-wrap: nowrap;
+    gap: 20px;
 }
 
 .swiperNavButtons .buttons div {
+    width: 40px;
     cursor: pointer;
+    user-select: none;
 }
 
 .swiperNavButtons .pageNumbers {
     display: flex;
+    align-items: center;
     flex-wrap: nowrap;
-    font-size: 1.5rem;
+    font-size: 20px;
+    gap: 5px;
 }
 
-.swiperNavButtons .pageNumbers div {
-    padding: 4px 8px;
+.swiperNavButtons .pageNumbers div:nth-child(2) {
+    padding: 10px 0 0 0;
+}
+
+.swiperNavButtons .pageNumbers div:nth-child(1),
+.swiperNavButtons .pageNumbers div:nth-child(3) {
+    width: 20px;
+    text-align: center;
 }
 
 .card-list .card-item .user-image {

@@ -1,0 +1,32 @@
+.statInfoSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px;
+    gap: 20px;
+    flex-wrap: wrap;
+    text-align: center;
+    user-select: none;
+
+    background: #ae5436;
+    background: -webkit-linear-gradient(to right, #436e94, #bbbd52);
+    background: linear-gradient(to right, #436e94, #bbbd52);
+}
+
+.statCard {
+    width: 280px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.counter {
+    font-size: 35px;
+    font-weight: 500;
+}
+
+.cardDescription {
+    font-size: 18px;
+    padding: 10px 5px;
+    font-family: "Poppins", sans-serif;
+    text-align: center;
+}

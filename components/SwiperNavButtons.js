@@ -1,30 +1,30 @@
 import styles from "./../styles/index.module.css";
 import { useSwiper } from "swiper/react";
-import { IoArrowForwardOutline } from "react-icons/io5";
-import { GoHorizontalRule } from "react-icons/go";
-import { IoArrowBackOutline } from "react-icons/io5";
+import HorizontalLine from "./icons/HorizontalLine";
+import RightArrowSvg from "./icons/RightArrow";
+import LeftArrowSvg from "./../components/icons/BackwardArrow";
 
-const SwiperNavButtons = ({ activeSlide }) => {
+const SwiperNavButtons = ({ activeSlide, totalSlides }) => {
     const swiper = useSwiper();
     return (
         <div className={styles.swiperNavButtons}>
             <div className={styles.pageNumbers}>
-                {activeSlide}
-                <div><GoHorizontalRule /></div>
-                {"4"}
+                <div>{activeSlide}</div>
+                <div><HorizontalLine /></div>
+                <div>{totalSlides}</div>
             </div>
             <div className={styles.buttons}>
-                <div className={styles.swiperButtonPrev}>
+                <div className={styles.swiperButtonPrev} onClick={() => swiper.slidePrev()}>
                     {
                         activeSlide > 1 && (
-                            <IoArrowBackOutline onClick={() => swiper.slidePrev()} />
+                            <LeftArrowSvg />
                         )
                     }
                 </div>
-                <div className={styles.swiperButtonNext}>
+                <div className={styles.swiperButtonNext} onClick={() => swiper.slideNext()} >
                     {
-                        activeSlide < 4 && (
-                            <IoArrowForwardOutline onClick={() => swiper.slideNext()} />
+                        activeSlide < totalSlides && (
+                            <RightArrowSvg />
                         )
                     }
                 </div>

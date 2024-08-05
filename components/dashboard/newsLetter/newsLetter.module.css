@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.newsLetterSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 40px 5%;
+    gap: 20px;
+    user-select: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+.newsLetterSection .sectionHead {
+    font-size: 20px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.newsLetterSection .sectionLabel {
+    font-size: 16px;
+    text-align: justify;
+    color: #585858;
+}
+
+.formSection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.formSection input[type="email"],
+.formSection input[type="text"] {
+    font-family: 'Poppins', sans-serif;
+    width: 300px;
+    outline: none;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 7px;
+    border: 2px solid #ababab;
+}
+
+.formSection label {
+    font-weight: 600;
+}
+
+.formSubmit {
+    display: flex;
+    justify-content: center;
+}
+
+.formSubmit button {
+    background: blue;
+    color: #FFF;
+    padding: 10px 20px;
+    width: 50%;
+    text-align: center;
+    margin: 20px auto;
+    cursor: pointer;
+    border: 1px solid blue;
+    font-size: 20px;
+    border-radius: 10px;
+    transition: 0.3s all ease-in;
+}

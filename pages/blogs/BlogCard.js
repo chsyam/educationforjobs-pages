@@ -31,9 +31,7 @@ function BlogCard({ blog }) {
                     </p>
                 </div>
                 <div className={styles.content}>
-                    <p>
-                        <div dangerouslySetInnerHTML={{ __html: blog?.content }} />
-                    </p>
+                    <div dangerouslySetInnerHTML={{ __html: blog?.content }} />
                 </div>
                 <div className={styles.date}>
                     <div className={styles.timeIcon}><IoMdTime /></div>

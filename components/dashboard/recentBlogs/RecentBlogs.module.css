@@ -1,0 +1,62 @@
+.recentBlogSection {
+    background: black;
+    padding: 5%;
+    user-select: none;
+}
+
+.sectionHead {
+    color: #FFFFFF;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.recentBlogSection .cardSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.recentBlogSection .card {
+    min-height: 350px;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 10px;
+    margin: 30px 0;
+    width: 30%;
+}
+
+.recentBlogSection .card .title {
+    text-align: justify;
+    font-size: 30px;
+    font-weight: 600;
+    padding: 5px 10px;
+    margin: 20px 0;
+}
+
+.recentBlogSection .card .date {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    color: rgb(87, 87, 87);
+    padding: 5px;
+    gap: 5px;
+}
+
+.recentBlogSection .card .date div:nth-child(1) {
+    padding: 5px 0 0 0;
+}
+
+@media (max-width: 920px) {
+    .recentBlogSection .card {
+        width: 100%;
+        min-height: 100px;
+    }
+
+    .recentBlogSection .card .title {
+        margin: 10px 0;
+        padding: 0 10px;
+        font-size: 20px;
+    }
+}

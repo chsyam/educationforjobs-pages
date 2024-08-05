@@ -1,0 +1,36 @@
+.welcomeSection {
+    height: calc(100vh);
+    background: url("./../../../components/images/forest.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    padding: 0 40px;
+}
+
+.welcomeSection .sectionHead {
+    margin: 10% 0 0 0;
+    color: #FFF;
+    font-weight: 500;
+}
+
+.welcomeSection .paragraph {
+    width: 40%;
+    backdrop-filter: blur(50px);
+    color: #FFF;
+    text-align: justify;
+    font-size: 18px;
+    padding: 20px;
+    border-radius: 10px;
+    line-height: 1.5;
+}
+
+@media (max-width:900px) {
+    .welcomeSection .paragraph{
+        width: 90%;
+    }
+}

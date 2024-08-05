@@ -1,0 +1,20 @@
+.socialMediaSection {
+    font-size: 24px;
+    margin: 20px 0 0 0;
+}
+
+.socialMediaSection .icons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 25px;
+    margin: 5px 0;
+}
+
+.shareText {
+    color: #FFF;
+}
+
+.socialMediaSection .icons div {
+    cursor: pointer;
+}
