@@ -1,8 +1,7 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 
-const firebaseConfig = {
+const firebaseConfig_fireStore = {
     apiKey: "AIzaSyAvxrScty6lzwbsmd-qfmBE9y3ery_Spr0",
     authDomain: "educationforjobs-storage.firebaseapp.com",
     projectId: "educationforjobs-storage",
@@ -12,8 +11,7 @@ const firebaseConfig = {
     measurementId: "G-MG8Y4FZ235"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const storage = getStorage(app);
+const app_fireStore = initializeApp(firebaseConfig_fireStore);
+const storage = getStorage(app_fireStore);
 
-export default storage;            
+export default storage;

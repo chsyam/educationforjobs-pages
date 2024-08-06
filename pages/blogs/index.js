@@ -1,7 +1,8 @@
 import styles from "@/styles/Blogs.module.css";
 import BlogCard from "./BlogCard";
 import { useEffect, useState } from "react";
-import { getAllBlogs } from "../api/blogs/getAllBlogs";
+import { realtimeDB } from "@/components/firebaseConfig/FirebaseConfig";
+import { get, ref } from "firebase/database";
 
 export default function Blogs({ blogsList }) {
     const [blogsData, setBlogsData] = useState([]);
@@ -49,11 +50,30 @@ export default function Blogs({ blogsList }) {
 }
 
 export async function getServerSideProps() {
-    const blogsList = await getAllBlogs();
-
-    return {
-        props: {
-            blogsList
+    try {
+        const blogRef = ref(realtimeDB, "blogs");
+        const snapshot = await get(blogRef);
+        if (snapshot.exists()) {
+            console.log("res", Object.values(snapshot.val()));
+            return {
+                props: {
+                    blogsList: Object.values(snapshot.val())
+                }
+            }
+        } else {
+            console.log("Error fetching data (or) No data available");
+        }
+        return {
+            props: {
+                blogsList: []
+            }
+        }
+    } catch (error) {
+        console.log("Error fetching data (or) No data available");
+        return {
+            props: {
+                blogsList: []
+            }
         }
     }
 }

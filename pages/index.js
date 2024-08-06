@@ -1,4 +1,3 @@
-import { getAllBlogs } from "./api/blogs/getAllBlogs";
 import styles from "./../styles/index.module.css";
 
 import 'swiper/css';
@@ -10,6 +9,8 @@ import NewsLetter from "@/components/dashboard/newsLetter/NewsLetter";
 import StatisticInfo from "@/components/dashboard/stats/StatisticInfo";
 import RecentBlogs from "@/components/dashboard/recentBlogs/RecentBlogs";
 import WelcomeSection from "@/components/dashboard/welcome/WelcomeSection";
+import { realtimeDB } from "@/components/firebaseConfig/FirebaseConfig";
+import { get, ref } from "firebase/database";
 
 export default function Home(props) {
     return (
@@ -23,29 +24,31 @@ export default function Home(props) {
     );
 }
 
-
 export async function getServerSideProps() {
     try {
-        const blogsList = await getAllBlogs();
-        if (blogsList === undefined || blogsList === null) {
+        const blogRef = ref(realtimeDB, "blogs");
+        const snapshot = await get(blogRef);
+        if (snapshot.exists()) {
+            console.log("res", Object.values(snapshot.val()));
             return {
                 props: {
-                    blogsList: [],
-                },
+                    blogsList: Object.values(snapshot.val())
+                }
             }
+        } else {
+            console.log("Error fetching data (or) No data available");
         }
         return {
             props: {
-                blogsList: blogsList,
-            },
-        };
+                blogsList: []
+            }
+        }
     } catch (error) {
-        console.log(error);
-
+        console.log("Error fetching data (or) No data available");
         return {
             props: {
-                blogsList: [],
-            },
+                blogsList: []
+            }
         }
     }
 }

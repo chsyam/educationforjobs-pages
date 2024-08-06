@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 import styles from "./../../styles/Feedback.module.css"
-import { submitFeedback } from "../api/feedback/submitFeedback";
+import app from "./../../components/firebaseConfig/RealtimeDBConfig";
+import { getDatabase, push, ref, set } from "firebase/database";
 
 function FeedbackForm({ relatedBlogId }) {
     const [formData, setFormData] = useState({
@@ -22,14 +23,20 @@ function FeedbackForm({ relatedBlogId }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         relatedBlogId && (formData.relatedBlogId = relatedBlogId);
-        const response = await submitFeedback(formData);
-        if (response === true) {
-            alert("Feedback submitted successfully");
-            window.location.reload();
-        } else {
-            console.log(response);
-            alert("Something went wrong. Please try again later");
-            window.location.reload();
+        try {
+            const db = getDatabase(app);
+            const newDocumentRef = push(ref(db, 'feedback/'));
+            set(newDocumentRef, formData)
+                .then(() => {
+                    alert("Feedback submitted successfully");
+                    window.location.reload();
+                })
+                .catch(() => {
+                    alert("error", error.message);
+                    window.location.reload();
+                });
+        } catch (error) {
+            console.log(error);
         }
     }
 

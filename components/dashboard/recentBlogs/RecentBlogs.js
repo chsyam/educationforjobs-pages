@@ -34,7 +34,7 @@ export default function RecentBlogs({ blogs }) {
                     blogs.map((post, index) => (
                         <div
                             style={backgoundGradient[index % blogs?.length]}
-                            key={post.id}
+                            key={index}
                             className={styles.card}
                             onClick={() => window.open(`/blogs/${post.id}`, "_blank")}
                         >

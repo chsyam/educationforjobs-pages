@@ -2,10 +2,10 @@
 import styles from "@/styles/createPost.module.css"
 import { useEffect, useRef, useState } from "react";
 import dynamic from 'next/dynamic';
-import { publishBlogs } from "@/pages/api/publish/publishBlogs";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import storage from "./../../../components/config";
 import { TagsInput } from "react-tag-input-component";
+import { getDownloadURL, uploadBytesResumable, ref as storageRef } from "firebase/storage";
+import { realtimeDB, storage } from "@/components/firebaseConfig/FirebaseConfig";
+import { push, set, ref as dbRef } from "firebase/database";
 
 const JoditEditor = dynamic(() => import("jodit-react"), {
     ssr: false
@@ -47,7 +47,7 @@ function AddPost() {
 
     const handleFileUpload = () => {
         if (!file) return;
-        const fileRef = ref(storage, `files/${file.name}`);
+        const fileRef = storageRef(storage, `files/${file.name}`);
         const uploadTask = uploadBytesResumable(fileRef, file);
         uploadTask.on(
             "state_changed",
@@ -77,14 +77,20 @@ function AddPost() {
         }
         setPublishing(true);
         console.log(formData);
-        const response = await publishBlogs(formData);
-        setPublishing(false);
-        if (response === true) {
-            alert("Blog Created Successfully");
-            window.location.reload();
-        } else {
-            alert("Something went wrong. Please try again later");
+        try {
+            const newDocumentRef = push(dbRef(realtimeDB, 'blogs/'));
+            set(newDocumentRef, formData)
+                .then(() => {
+                    console.log("Document written successfully");
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    console.error("Error writing document: ", error, "Please try again later");
+                });
+        } catch (error) {
+            console.log(error);
         }
+        setPublishing(false);
     }
 
     const handleFileChange = (event) => {
