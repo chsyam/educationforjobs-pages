@@ -5,6 +5,7 @@ import app from "./../../components/firebaseConfig/RealtimeDBConfig";
 import { getDatabase, push, ref, set } from "firebase/database";
 
 function FeedbackForm({ relatedBlogId }) {
+    console.log("relatedBlogId123", relatedBlogId);
     const [formData, setFormData] = useState({
         comment: "",
         username: "",

@@ -6,6 +6,7 @@ import { TagsInput } from "react-tag-input-component";
 import { getDownloadURL, uploadBytesResumable, ref as storageRef } from "firebase/storage";
 import { realtimeDB, storage } from "@/components/firebaseConfig/FirebaseConfig";
 import { push, set, ref as dbRef } from "firebase/database";
+import { v4 as uuidv4 } from "uuid";
 
 const JoditEditor = dynamic(() => import("jodit-react"), {
     ssr: false
@@ -20,12 +21,16 @@ function AddPost() {
     const [errorMessage, setErrorMessage] = useState("");
     const editorData = useRef("");
     const [formData, setFormData] = useState({
+        id: "",
         title: "",
         content: "",
         videoUrl: "",
         resourceUrl: "",
-        tagsList: ""
+        tagsList: "",
+        postedAt: ""
     })
+
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -69,12 +74,29 @@ function AddPost() {
         );
     }
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (uploadProgress < 100) {
             setErrorMessage("Please wait for the file to upload");
             return;
         }
+        function generateUniqueId() {
+            return uuidv4();
+        }
+        formData.id = generateUniqueId();
+        const getISTtimeStamp = () => {
+            let now = new Date();
+            let time = now.getTime();
+            let offset = now.getTimezoneOffset() * 60000;
+            let istOffset = 5.5 * 60 * 60 * 1000;
+            let istTime = new Date(time + offset + istOffset);
+            return istTime.toISOString();
+        };
+
+        const postedAt = getISTtimeStamp();
+        formData.postedAt = postedAt;
+
         setPublishing(true);
         console.log(formData);
         try {
@@ -120,7 +142,11 @@ function AddPost() {
                     Publishing your Content
                 </div>
             ) : (
-                <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
+                <form className={styles.form}
+                    onSubmit={(e) => {
+                        handleSubmit(e);
+                    }}
+                >
                     <div className={styles.heading}>Publish a Post</div>
                     <div className={styles.divSection}>
                         <div className={styles.label}>Blog Title (required)</div>

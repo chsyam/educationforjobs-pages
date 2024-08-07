@@ -20,7 +20,7 @@ function BlogCard({ blog }) {
     }
 
     return (
-        <div className={styles.card} onClick={() => { handleRoute(blog?.id) }}>
+        <div className={styles.card} onClick={() => { blog?.id && handleRoute(blog?.id) }}>
             <div className={styles.logoImage}>
                 <Image priority="high" className={styles.image} src={BlogImage} width="auto" height="auto" alt="Blog image" />
             </div>

@@ -29,7 +29,6 @@ export async function getServerSideProps() {
         const blogRef = ref(realtimeDB, "blogs");
         const snapshot = await get(blogRef);
         if (snapshot.exists()) {
-            console.log("res", Object.values(snapshot.val()));
             return {
                 props: {
                     blogsList: Object.values(snapshot.val())

@@ -3,13 +3,14 @@ import { useEffect } from "react";
 import styles from "./../../styles/Feedback.module.css"
 import FeedbackForm from "./FeedbackForm";
 
-function Feedback() {
+function Feedback({ relatedBlogId }) {
     useEffect(() => {
-        document.title = "Feedback | EducationForJobs";
+        if (relatedBlogId === undefined)
+            document.title = "Feedback | EducationForJobs";
     })
     return (
         <div className={styles.feedbackForm}>
-            <FeedbackForm />
+            <FeedbackForm relatedBlogId={relatedBlogId} />
         </div>
     )
 }

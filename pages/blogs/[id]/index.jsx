@@ -6,12 +6,15 @@ import { useEffect, useState } from "react";
 import { IoMdTime } from "react-icons/io";
 import { GiRingingBell } from "react-icons/gi";
 import { BsDownload } from "react-icons/bs";
+import { equalTo, get, query, ref } from "firebase/database";
+import { realtimeDB } from "@/components/firebaseConfig/FirebaseConfig";
 
-export default function BlogPost({ blogData }) {
-	const [blogInfo, setBlogInfo] = useState({});
+export default function BlogPost({ blogData, id }) {
+	const [blogInfo, setBlogInfo] = useState(blogData);
 	const [blogFound, setBlogFound] = useState(true);
 	const [loading, setLoading] = useState(true);
 	const [tags, setTags] = useState([]);
+	const [relatedBlogId, setRelatedBlogId] = useState(id);
 
 	useEffect(() => {
 		try {
@@ -31,15 +34,15 @@ export default function BlogPost({ blogData }) {
 	useEffect(() => {
 		function fetchBlogData() {
 			setLoading(true);
-			if (blogData) {
+			if (blogData)
 				setBlogInfo(blogData);
-			} else {
+			else
 				setBlogFound(false);
-			}
 			setLoading(false);
 		}
 		fetchBlogData();
 		document.title = blogInfo?.title ? blogInfo?.title + " | EducationForJobs" : "Blogs | EducationForJobs";
+		setRelatedBlogId(blogData.id);
 	}, [blogInfo, blogData]);
 
 	return (
@@ -101,24 +104,52 @@ export default function BlogPost({ blogData }) {
 						</div>
 					}
 					<div className={styles.feedbackSection}>
-						<FeedbackForm relatedBlogId={1 /*params.id*/} />
+						<FeedbackForm relatedBlogId={relatedBlogId} />
 					</div>
 				</div >
 			)
 		) : (
 			<div style={{ textAlign: "center", marginTop: "20%", fontFamily: "Poppins", fontWeight: "600" }}>
-				{`Blog with id 1 Not Found`}
+				{`Blog with id ${id} Not Found`}
 			</div>
 		)
 	);
 }
 
 export async function getServerSideProps(context) {
-	const blogData = await getBlogById(context.params.id);
+	try {
+		const filterValue = context.params.id;
+		if (filterValue === undefined)
+			throw new Error("Invalid id");
+		const dbRef = ref(realtimeDB, '/blogs');
+		const snapshot = await get(dbRef);
+		if (snapshot.exists()) {
+			const allBlogs = snapshot.val();
+			const filterKey = 'id';
+			const filteredData = Object.values(allBlogs).filter(item => item[filterKey] === filterValue);
+			if (filteredData) {
+				return {
+					props: {
+						blogData: filteredData[0],
+						id: context.params.id
+					},
+				};
+			}
+			return {
+				props: {
+					blogData: {},
+					id: context.params.id
+				}
+			}
+		}
+	} catch (error) {
+		console.error("Error fetching data123: ", error);
+	}
 
 	return {
 		props: {
-			blogData: blogData,
+			blogData: {},
+			id: context.params.id,
 		},
 	};
 }
